@@ -106,7 +106,7 @@ python core/embedder/embed_pipeline.py --json-file output/FY2025_chunks.json --p
 
 
 ## 文件目录结构
-
+```text
 tesla/
 ├── app/                          # 🖥️ Streamlit Web 交互界面
 ├── core/                         # 🧠 核心业务逻辑与 RAG 组件
@@ -136,3 +136,4 @@ tesla/
 ├── test_parser.py                # 🛠️ 各种格式 Document Parsing/Chunking 测试验证
 ├── test_retrieval.py             # 🛠️ 整体 RAG Retriever 和 QA 链路测试
 └── web.png                       # 🖼️ 提供预览的 Web UI 系统截图
+```
