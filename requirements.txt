@@ -1,0 +1,60 @@
+# =============================================================
+# 特斯拉财报智能问答系统 · 依赖清单
+# 安装命令：conda run -n tesla pip install -r requirements.txt
+# =============================================================
+
+# ── deepdoc / ragflow 核心依赖 ────────────────────────────────
+# RAGFlowPdfParser 依赖（需要 ML 模型，如遇加载失败会自动回退到 PlainParser）：
+xgboost==1.7.6            # 段落合并分类模型
+# torch GPU版请用以下命令单独安装（CUDA 12.x）：
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+torch>=2.0.0              # 布局识别骨干网络（如需GPU版请单独安装上方命令）
+pdfplumber>=0.9.0         # PDF 文本/图像提取
+pypdf>=3.0.0              # PDF 轮廓/页码提取
+pillow>=9.0.0             # 图像处理
+numpy>=1.24.0             # 数值计算
+huggingface-hub>=0.16.0   # 模型下载
+pycryptodome
+cachetools
+ruamel.yaml
+strenum
+# onnxruntime-gpu 替代 onnxruntime（二选一，不可共存）：
+# pip uninstall onnxruntime -y && pip install onnxruntime-gpu
+onnxruntime-gpu           # OCR/布局模型 GPU 推理（CUDA 12.x 兼容）
+opencv-python
+shapely
+pyclipper
+pygtrie
+nltk
+hanziconv
+roman-numbers
+word2number
+cn2an
+rank-bm25
+# PlainParser 依赖（轻量模式，仅需以下包）：
+pypdf>=3.0.0               # PDF 文本提取（PlainParser 使用）
+
+# ── 解析与分块模块 ────────────────────────────────────────────
+# （当前 _count_tokens 使用字符估算，无需 tiktoken；
+#  如需精确 token 计数可取消注释下行并安装）
+tiktoken>=0.5.0           # 精确 token 计数（可选）
+
+# ── 向量数据库（下一阶段使用）────────────────────────────────
+chromadb>=0.4.0
+
+# ── Embedding 模型 ───────────────────────────────────────
+sentence-transformers>=2.2.0  # 本地嵌入模型（BAAI/bge 系列等）
+openai>=1.0.0                 # API 嵌入（OpenAI 兼容接口）
+
+# ── 检索模块 ──────────────────────────────────────────────────
+rank-bm25>=0.2.2          # BM25 关键词检索，用于混合检索中的精确匹配
+
+# ── LLM 调用 ───────────────────────────────────────────────────
+openai>=1.0.0 已在上方声明，支持 OpenAI 兼容接口（含 DeepSeek、通义等）
+
+# ── API 服务（后续阶段使用）──────────────────────────────────────
+# fastapi>=0.100.0
+# uvicorn>=0.23.0
+
+# ── Web UI ───────────────────────────────────────────────────
+streamlit>=1.30.0
